@@ -3,179 +3,248 @@ backend:
   branch: main
 
 media_folder: "assets/uploads"
-public_folder: "/assets/uploads"
+public_folder: "assets/uploads"
 
-# Organized into 4 separate sections matching the site's actual
-# categories — Campaigns, Reels, Documentaries, AI Shoots — so
-# Mohamed sees a clean, labeled list for each instead of one giant
-# mixed list of everything. Which section a project lives in IS its
-# category — there's no separate dropdown to pick wrong.
+# ─────────────────────────────────────────────
+#  MOEVISUALS — Content Manager
+#  Mohamed can add / edit projects here.
+#  Three sections: Campaigns · Documentaries · AI Shoots
+# ─────────────────────────────────────────────
 
 collections:
+
+  # ── CAMPAIGNS ────────────────────────────────
   - name: "campaigns"
     label: "Campaigns"
     files:
       - file: "content/campaigns.json"
-        label: "Campaigns"
+        label: "All Campaign Projects"
         name: "campaigns"
         fields:
           - label: "Projects"
             name: "items"
             widget: "list"
-            summary: "{{title}}"
+            label_singular: "Campaign Project"
+            summary: "{{fields.title}}"
             fields:
-              - { label: "Title", name: "title", widget: "string", hint: "e.g. Adidas Originals Campaign" }
-              - { label: "Slug (unique, no spaces, lowercase)", name: "slug", widget: "string", hint: "e.g. adidas-originals-campaign" }
-              - { label: "Home/Grid Cover Photo (shown small on Home and this category page)", name: "thumbnail", widget: "image", required: false }
-              - { label: "Project Page Cover Photo (the big featured photo on this project's own page)", name: "pageCover", widget: "image", required: false, hint: "Optional — if left empty, the Home/Grid cover photo above is used instead." }
-              - label: "Card Shape (this category page only — Home always stays the same shape no matter what you pick here)"
-                name: "cardRatio"
-                widget: "select"
-                required: false
-                default: "4:3"
-                options:
-                  - { label: "Vertical (9:16) — like Instagram Reels", value: "9:16" }
-                  - { label: "Landscape (16:9) — widescreen", value: "16:9" }
-                  - { label: "Standard (4:3) — classic", value: "4:3" }
-                  - { label: "Square (1:1)", value: "1:1" }
-              - label: "Videos / Reels — add as many as you like for a Campaign"
-                name: "videos"
-                widget: "list"
-                required: false
-                summary: "{{fields.caption}}"
-                fields:
-                  - { label: "Video File (upload directly — best for short clips, no YouTube/Vimeo needed)", name: "file", widget: "file", required: false, hint: "Keep clips short so the file stays small (rough guide: under ~20MB)." }
-                  - { label: "Video Link (YouTube or Vimeo — use this instead for longer videos)", name: "link", widget: "string", required: false, hint: "Paste the full link, e.g. https://youtube.com/watch?v=..." }
-                  - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
-              - { label: "Description", name: "description", widget: "text" }
-              - label: "Snapshots / Photos (add as many as you want)"
-                name: "snapshots"
-                widget: "list"
-                required: false
-                field: { label: "Image", name: "image", widget: "image" }
 
-  - name: "reels"
-    label: "Reels"
-    files:
-      - file: "content/reels.json"
-        label: "Reels"
-        name: "reels"
-        fields:
-          - label: "Projects"
-            name: "items"
-            widget: "list"
-            summary: "{{title}}"
-            fields:
-              - { label: "Title", name: "title", widget: "string", hint: "e.g. Coddiwomple" }
-              - { label: "Slug (unique, no spaces, lowercase)", name: "slug", widget: "string", hint: "e.g. coddiwomple" }
-              - { label: "Home/Grid Cover Photo (shown small on Home and this category page)", name: "thumbnail", widget: "image", required: false }
-              - { label: "Project Page Cover Photo (the big featured photo on this project's own page)", name: "pageCover", widget: "image", required: false, hint: "Optional — if left empty, the Home/Grid cover photo above is used instead." }
-              - label: "Card Shape (this category page only — Home always stays the same shape no matter what you pick here)"
+              - label: "Project Title"
+                name: "title"
+                widget: "string"
+                hint: "e.g.  SICK Campaign"
+
+              - label: "Slug  (unique ID — lowercase, no spaces, use dashes)"
+                name: "slug"
+                widget: "string"
+                hint: "e.g.  sick-campaign   |   Must be unique — no two projects can share the same slug."
+
+              - label: "Cover Photo  (shown on the Campaigns page)"
+                name: "thumbnail"
+                widget: "image"
+                required: false
+                hint: "Upload the photo that appears as the project card."
+
+              - label: "Card Shape"
                 name: "cardRatio"
                 widget: "select"
-                required: false
                 default: "9:16"
                 options:
-                  - { label: "Vertical (9:16) — like Instagram Reels", value: "9:16" }
-                  - { label: "Landscape (16:9) — widescreen", value: "16:9" }
-                  - { label: "Standard (4:3) — classic", value: "4:3" }
-                  - { label: "Square (1:1)", value: "1:1" }
-              - label: "Video — add only ONE (extra ones won't be shown on the site for Reels)"
+                  - { label: "Vertical / Portrait  (9:16)  — recommended for fashion / reels", value: "9:16" }
+                  - { label: "Landscape  (16:9)  — recommended for wide shots", value: "16:9" }
+                  - { label: "Square  (1:1)", value: "1:1" }
+
+              - label: "Short Description"
+                name: "description"
+                widget: "text"
+                hint: "1–2 sentences about the project."
+
+              - label: "Videos  (add as many reels as you like)"
                 name: "videos"
                 widget: "list"
                 required: false
-                summary: "{{fields.caption}}"
+                label_singular: "Video"
+                summary: "Video {{i}}"
                 fields:
-                  - { label: "Video File (upload directly — best for short clips, no YouTube/Vimeo needed)", name: "file", widget: "file", required: false, hint: "Keep clips short so the file stays small (rough guide: under ~20MB)." }
-                  - { label: "Video Link (YouTube or Vimeo — use this instead for longer videos)", name: "link", widget: "string", required: false, hint: "Paste the full link, e.g. https://youtube.com/watch?v=..." }
-                  - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
-              - { label: "Description", name: "description", widget: "text" }
-              - label: "Snapshots / Photos (add as many as you want)"
+                  - label: "Google Drive / YouTube / Vimeo Link  ← use this for all videos"
+                    name: "link"
+                    widget: "string"
+                    required: false
+                    hint: "Paste the share link — e.g.  https://drive.google.com/file/d/XXXX/view"
+                  - label: "Or upload a small video file  (under 10 MB only)"
+                    name: "file"
+                    widget: "file"
+                    required: false
+                    hint: "For longer videos always use the Google Drive link above instead."
+                  - label: "Caption  (optional)"
+                    name: "caption"
+                    widget: "string"
+                    required: false
+
+              - label: "Snapshots / Photos  (add as many as you like)"
                 name: "snapshots"
                 widget: "list"
                 required: false
-                field: { label: "Image", name: "image", widget: "image" }
+                label_singular: "Photo"
+                field: { label: "Photo", name: "image", widget: "image" }
 
+              - label: "Page Cover  (optional — leave empty)"
+                name: "pageCover"
+                widget: "image"
+                required: false
+                hint: "Only needed if you want a different photo on the project page than the card cover. Usually leave this empty."
+
+  # ── DOCUMENTARIES ────────────────────────────
   - name: "documentaries"
     label: "Documentaries"
     files:
       - file: "content/documentaries.json"
-        label: "Documentaries"
+        label: "All Documentary Projects"
         name: "documentaries"
         fields:
           - label: "Projects"
             name: "items"
             widget: "list"
-            summary: "{{title}}"
+            label_singular: "Documentary Project"
+            summary: "{{fields.title}}"
             fields:
-              - { label: "Title", name: "title", widget: "string", hint: "e.g. Ringside Glory" }
-              - { label: "Slug (unique, no spaces, lowercase)", name: "slug", widget: "string", hint: "e.g. ringside-glory" }
-              - { label: "Home/Grid Cover Photo (shown small on Home and this category page)", name: "thumbnail", widget: "image", required: false }
-              - { label: "Project Page Cover Photo (the big featured photo on this project's own page)", name: "pageCover", widget: "image", required: false, hint: "Optional — if left empty, the Home/Grid cover photo above is used instead." }
-              - label: "Card Shape (this category page only — Home always stays the same shape no matter what you pick here)"
+
+              - label: "Project Title"
+                name: "title"
+                widget: "string"
+                hint: "e.g.  Ringside Glory"
+
+              - label: "Slug  (unique ID — lowercase, no spaces, use dashes)"
+                name: "slug"
+                widget: "string"
+                hint: "e.g.  ringside-glory"
+
+              - label: "Cover Photo  (shown on the Documentaries page)"
+                name: "thumbnail"
+                widget: "image"
+                required: false
+
+              - label: "Card Shape"
                 name: "cardRatio"
                 widget: "select"
-                required: false
                 default: "16:9"
                 options:
-                  - { label: "Vertical (9:16) — like Instagram Reels", value: "9:16" }
-                  - { label: "Landscape (16:9) — widescreen", value: "16:9" }
-                  - { label: "Standard (4:3) — classic", value: "4:3" }
-                  - { label: "Square (1:1)", value: "1:1" }
-              - label: "Video — add only ONE (extra ones won't be shown on the site for Documentaries)"
+                  - { label: "Landscape  (16:9)  — recommended for documentaries", value: "16:9" }
+                  - { label: "Vertical / Portrait  (9:16)", value: "9:16" }
+                  - { label: "Square  (1:1)", value: "1:1" }
+
+              - label: "Short Description"
+                name: "description"
+                widget: "text"
+                hint: "1–2 sentences about the project."
+
+              - label: "Video  (add one)"
                 name: "videos"
                 widget: "list"
                 required: false
-                summary: "{{fields.caption}}"
+                label_singular: "Video"
+                summary: "Video {{i}}"
                 fields:
-                  - { label: "Video File (upload directly — best for short clips, no YouTube/Vimeo needed)", name: "file", widget: "file", required: false, hint: "Keep clips short so the file stays small (rough guide: under ~20MB)." }
-                  - { label: "Video Link (YouTube or Vimeo — use this instead for longer videos)", name: "link", widget: "string", required: false, hint: "Paste the full link, e.g. https://youtube.com/watch?v=..." }
-                  - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
-              - { label: "Description", name: "description", widget: "text" }
-              - label: "Snapshots / Photos (add as many as you want)"
+                  - label: "Google Drive / YouTube / Vimeo Link"
+                    name: "link"
+                    widget: "string"
+                    required: false
+                    hint: "Paste the share link — e.g.  https://drive.google.com/file/d/XXXX/view"
+                  - label: "Or upload a small video file  (under 10 MB only)"
+                    name: "file"
+                    widget: "file"
+                    required: false
+                  - label: "Caption  (optional)"
+                    name: "caption"
+                    widget: "string"
+                    required: false
+
+              - label: "Snapshots / Photos  (optional)"
                 name: "snapshots"
                 widget: "list"
                 required: false
-                field: { label: "Image", name: "image", widget: "image" }
+                label_singular: "Photo"
+                field: { label: "Photo", name: "image", widget: "image" }
 
+              - label: "Page Cover  (optional — leave empty)"
+                name: "pageCover"
+                widget: "image"
+                required: false
+                hint: "Leave empty — the Cover Photo above is used automatically."
+
+  # ── AI SHOOTS ────────────────────────────────
   - name: "ai-shoots"
     label: "AI Shoots"
     files:
       - file: "content/ai-shoots.json"
-        label: "AI Shoots"
+        label: "All AI Shoot Projects"
         name: "ai-shoots"
         fields:
           - label: "Projects"
             name: "items"
             widget: "list"
-            summary: "{{title}}"
+            label_singular: "AI Shoot Project"
+            summary: "{{fields.title}}"
             fields:
-              - { label: "Title", name: "title", widget: "string", hint: "e.g. AI Generated Showreel" }
-              - { label: "Slug (unique, no spaces, lowercase)", name: "slug", widget: "string", hint: "e.g. ai-generated-showreel" }
-              - { label: "Home/Grid Cover Photo (shown small on Home and this category page)", name: "thumbnail", widget: "image", required: false }
-              - { label: "Project Page Cover Photo (the big featured photo on this project's own page)", name: "pageCover", widget: "image", required: false, hint: "Optional — if left empty, the Home/Grid cover photo above is used instead." }
-              - label: "Card Shape (this category page only — Home always stays the same shape no matter what you pick here)"
+
+              - label: "Project Title"
+                name: "title"
+                widget: "string"
+                hint: "e.g.  Flashy"
+
+              - label: "Slug  (unique ID — lowercase, no spaces, use dashes)"
+                name: "slug"
+                widget: "string"
+                hint: "e.g.  ai-flashy"
+
+              - label: "Cover Photo  (shown on the AI Shoots page)"
+                name: "thumbnail"
+                widget: "image"
+                required: false
+
+              - label: "Card Shape"
                 name: "cardRatio"
                 widget: "select"
-                required: false
-                default: "4:3"
+                default: "9:16"
                 options:
-                  - { label: "Vertical (9:16) — like Instagram Reels", value: "9:16" }
-                  - { label: "Landscape (16:9) — widescreen", value: "16:9" }
-                  - { label: "Standard (4:3) — classic", value: "4:3" }
-                  - { label: "Square (1:1)", value: "1:1" }
-              - label: "Video — add only ONE (extra ones won't be shown on the site for AI Shoots)"
+                  - { label: "Vertical / Portrait  (9:16)", value: "9:16" }
+                  - { label: "Landscape  (16:9)", value: "16:9" }
+                  - { label: "Square  (1:1)", value: "1:1" }
+
+              - label: "Short Description"
+                name: "description"
+                widget: "text"
+                hint: "1–2 sentences about the project."
+
+              - label: "Video  (add one)"
                 name: "videos"
                 widget: "list"
                 required: false
-                summary: "{{fields.caption}}"
+                label_singular: "Video"
+                summary: "Video {{i}}"
                 fields:
-                  - { label: "Video File (upload directly — best for short clips, no YouTube/Vimeo needed)", name: "file", widget: "file", required: false, hint: "Keep clips short so the file stays small (rough guide: under ~20MB)." }
-                  - { label: "Video Link (YouTube or Vimeo — use this instead for longer videos)", name: "link", widget: "string", required: false, hint: "Paste the full link, e.g. https://youtube.com/watch?v=..." }
-                  - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
-              - { label: "Description", name: "description", widget: "text" }
-              - label: "Snapshots / Photos (add as many as you want)"
+                  - label: "Google Drive / YouTube / Vimeo Link"
+                    name: "link"
+                    widget: "string"
+                    required: false
+                    hint: "Paste the share link — e.g.  https://drive.google.com/file/d/XXXX/view"
+                  - label: "Or upload a small video file  (under 10 MB only)"
+                    name: "file"
+                    widget: "file"
+                    required: false
+                  - label: "Caption  (optional)"
+                    name: "caption"
+                    widget: "string"
+                    required: false
+
+              - label: "Snapshots / Photos  (optional)"
                 name: "snapshots"
                 widget: "list"
                 required: false
-                field: { label: "Image", name: "image", widget: "image" }
+                label_singular: "Photo"
+                field: { label: "Photo", name: "image", widget: "image" }
+
+              - label: "Page Cover  (optional — leave empty)"
+                name: "pageCover"
+                widget: "image"
+                required: false
+                hint: "Leave empty — the Cover Photo above is used automatically."
