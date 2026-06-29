@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Project — Moevisuals</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div class="bg-fx"><svg class="aperture-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1"><circle cx="200" cy="200" r="170"/><g class="iris-mechanism"><path class="iris-blade" d="M 370,200 L 320.21,320.21 L 310.59,301.34 Z"/><path class="iris-blade" d="M 320.21,320.21 L 200,370 L 206.54,349.86 Z"/><path class="iris-blade" d="M 200,370 L 79.79,320.21 L 98.66,310.59 Z"/><path class="iris-blade" d="M 79.79,320.21 L 30,200 L 50.14,206.54 Z"/><path class="iris-blade" d="M 30,200 L 79.79,79.79 L 89.41,98.66 Z"/><path class="iris-blade" d="M 79.79,79.79 L 200,30 L 193.46,50.14 Z"/><path class="iris-blade" d="M 200,30 L 320.21,79.79 L 301.34,89.41 Z"/><path class="iris-blade" d="M 320.21,79.79 L 370,200 L 349.86,193.46 Z"/></g></g></svg><div class="light-leak"></div></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5" fill="currentColor"/><path d="M17.5 10L21.5 7.3V16.7L17.5 14V10Z" fill="currentColor"/><circle cx="9" cy="12" r="2.2" fill="#0a0a0a" opacity=".35"/></svg></span>Moevisuals</a>
+  <ul class="nav-links">
+    <li><a href="index.html"><em>01</em>Home</a></li>
+    <li><a href="documentaries.html"><em>02</em>Documentaries</a></li>
+    <li><a href="campaigns.html"><em>03</em>Campaigns</a></li>
+    <li><a href="ai-shoots.html"><em>04</em>AI Shoots</a></li>
+    <li><a href="about.html"><em>05</em>About</a></li>
+    <li><a href="contact.html" class="nav-contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="project-header">
+  <a href="index.html" id="back-link" class="project-back">← Back to <span id="back-label">Work</span></a>
+  <div class="eyebrow" id="project-cat">Category</div>
+  <h1 id="project-title">Project Title</h1>
+</div>
+
+<section class="project-video-wrap">
+  <div class="project-video" id="project-video"></div>
+</section>
+
+<section class="project-body">
+  <p class="project-desc" id="project-desc"></p>
+</section>
+
+<section class="project-videos-wrap" id="project-videos-wrap" style="display:none">
+  <h2 class="gallery-heading">More Videos</h2>
+  <div class="project-videos-grid" id="project-videos-grid"></div>
+</section>
+
+<section class="project-gallery-wrap">
+  <h2 class="gallery-heading">Snapshots</h2>
+  <div class="project-gallery" id="project-gallery"></div>
+</section>
+
+<footer class="footer">
+  <div class="footer-logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5" fill="currentColor"/><path d="M17.5 10L21.5 7.3V16.7L17.5 14V10Z" fill="currentColor"/><circle cx="9" cy="12" r="2.2" fill="#0a0a0a" opacity=".35"/></svg></span>Moevisuals</div>
+  <p class="footer-copy">© 2026 Mohamed Wael. All rights reserved.</p>
+  <div class="footer-socials">
+    <a href="https://www.instagram.com/moevisuals1" target="_blank">Instagram</a>
+    <a href="https://vimeo.com/user243885806" target="_blank">Vimeo</a>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  (async()=>{
+    const CATEGORY_PAGES = {
+      campaigns:     'campaigns.html',
+      documentaries: 'documentaries.html',
+      'ai-shoots':   'ai-shoots.html',
+    };
+    const VALID_CATS = ['campaigns', 'documentaries', 'ai-shoots'];
+    const params = new URLSearchParams(location.search);
+    const slug   = params.get('slug');
+    const cat    = params.get('cat');
+
+    let p = null;
+
+    /* 1 — sessionStorage (instant, no fetch needed) */
+    try {
+      const stored = sessionStorage.getItem('moe_projects');
+      if (stored && slug) {
+        p = JSON.parse(stored).find(item => item.slug === slug) || null;
+      }
+    } catch(e) {}
+
+    /* 2 — single targeted fetch using cat param */
+    if (!p && slug && cat && VALID_CATS.includes(cat)) {
+      try {
+        const res  = await fetch('content/' + cat + '.json', { cache: 'no-store' });
+        const data = await res.json();
+        p = (data.items || []).find(item => item.slug === slug) || null;
+        if (p) p = { ...p, category: cat };
+      } catch(e) { console.error('Fetch error:', e); }
+    }
+
+    /* 3 — search all categories as last resort */
+    if (!p && slug) {
+      try { p = await getProjectBySlug(slug); } catch(e) {}
+    }
+
+    if(!p){
+      document.getElementById('project-title').textContent = 'Project Not Found';
+      document.getElementById('project-cat').textContent = '';
+      document.getElementById('project-video').innerHTML = '';
+      document.querySelector('.project-video-wrap').style.display = 'none';
+      document.querySelector('.project-gallery-wrap').style.display = 'none';
+      document.getElementById('project-desc').textContent = "This project doesn’t exist or may have moved.";
+      return;
+    }
+
+    document.title = p.title + ' — Moevisuals';
+    document.getElementById('project-cat').textContent = CATEGORY_LABELS[p.category] || p.category;
+    document.getElementById('project-title').textContent = p.title;
+    document.getElementById('project-desc').textContent = p.description || '';
+    document.getElementById('back-link').href = CATEGORY_PAGES[p.category] || 'index.html';
+    document.getElementById('back-label').textContent = CATEGORY_LABELS[p.category] || 'Work';
+
+    /* Priority for the big featured player: the first video in the
+       list (uploaded file or YouTube/Vimeo link), then the cover
+       photo, then a placeholder. Any EXTRA videos beyond the first
+       are shown below in their own "More Videos" grid — but ONLY
+       for Campaigns. The admin form lets any category add several
+       videos (Decap CMS can't conditionally hide a field based on
+       another field without custom plugin code, which would need a
+       build step we deliberately don't have) — so the multi-video
+       rule is enforced here instead: Reels/Documentaries/AI Shoots
+       only ever display the first video, even if more were added
+       by mistake. */
+    const videos = getVideoList(p);
+    if (p.category !== 'campaigns' && videos.length > 1) {
+      videos.length = 1;
+    }
+    const pageCoverImg = p.pageCover || p.thumbnail;
+    let videoAreaHTML;
+    if (videos.length) {
+      const first = videos[0];
+      videoAreaHTML = first.type === 'file'
+        ? `<video src="${first.src}" controls playsinline preload="metadata" onerror="handleVideoError(this)"></video>`
+        : `<iframe src="${first.src}" allowfullscreen allow="autoplay; fullscreen" loading="lazy"></iframe>`;
+    } else if (pageCoverImg) {
+      /* No video yet — show the cover photo large instead of a
+         "coming soon" placeholder, so a photo-only project looks
+         intentional rather than incomplete. */
+      videoAreaHTML = `<img src="${pageCoverImg}" alt="${p.title}" class="project-cover-img" data-fallback="cover" onerror="handleImgError(this)"/>`;
+    } else {
+      videoAreaHTML = `<div class="video-placeholder"><span>Video Coming Soon</span></div>`;
+    }
+    document.getElementById('project-video').innerHTML = videoAreaHTML;
+
+    /* Extra videos (2nd, 3rd, ...) — only shown if there are any */
+    const extraVideos = videos.slice(1);
+    if (extraVideos.length) {
+      document.getElementById('project-videos-wrap').style.display = '';
+      document.getElementById('project-videos-grid').innerHTML = extraVideos.map(v => `
+        <div class="project-video-card">
+          <div class="project-video-card-media">
+            ${v.type === 'file'
+              ? `<video src="${v.src}" controls playsinline preload="metadata" onerror="handleVideoError(this)"></video>`
+              : `<iframe src="${v.src}" allowfullscreen allow="autoplay; fullscreen" loading="lazy"></iframe>`}
+          </div>
+          ${v.caption ? `<div class="project-video-card-caption">${v.caption}</div>` : ''}
+        </div>`).join('');
+    }
+
+    /* Real snapshots if Mohamed uploaded any, otherwise placeholders.
+       Handles the snapshot either as a plain string path (what our
+       CMS config actually produces) or as {image: "path"} (in case
+       the config ever changes shape), AND skips clean to the
+       placeholder if the entry is empty/blank — so a stray empty
+       list item can never render a broken <img src=""> or crash
+       anything. Each real image also has a live onerror fallback
+       in case the file itself is missing/404s. */
+    if (p.snapshots && p.snapshots.length) {
+      const shots = p.snapshots.map(s => {
+        const src = typeof s === 'string' ? s : (s && s.image) || '';
+        return src
+          ? `<div class="gallery-shot"><img src="${src}" alt="${p.title} snapshot" loading="lazy" data-fallback="gallery" onerror="handleImgError(this)"/></div>`
+          : '';
+      }).filter(Boolean);
+      if (shots.length) {
+        document.getElementById('project-gallery').innerHTML = shots.join('');
+      } else {
+        document.querySelector('.project-gallery-wrap').style.display = 'none';
+      }
+    } else {
+      document.querySelector('.project-gallery-wrap').style.display = 'none';
+    }
+  })();
+</script>
+</body>
+</html>

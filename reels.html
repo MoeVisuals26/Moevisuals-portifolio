@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Reels — Moevisuals</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div class="bg-fx"><svg class="aperture-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1"><circle cx="200" cy="200" r="170"/><g class="iris-mechanism"><path class="iris-blade" d="M 370,200 L 320.21,320.21 L 310.59,301.34 Z"/><path class="iris-blade" d="M 320.21,320.21 L 200,370 L 206.54,349.86 Z"/><path class="iris-blade" d="M 200,370 L 79.79,320.21 L 98.66,310.59 Z"/><path class="iris-blade" d="M 79.79,320.21 L 30,200 L 50.14,206.54 Z"/><path class="iris-blade" d="M 30,200 L 79.79,79.79 L 89.41,98.66 Z"/><path class="iris-blade" d="M 79.79,79.79 L 200,30 L 193.46,50.14 Z"/><path class="iris-blade" d="M 200,30 L 320.21,79.79 L 301.34,89.41 Z"/><path class="iris-blade" d="M 320.21,79.79 L 370,200 L 349.86,193.46 Z"/></g></g></svg><div class="light-leak"></div></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5" fill="currentColor"/><path d="M17.5 10L21.5 7.3V16.7L17.5 14V10Z" fill="currentColor"/><circle cx="9" cy="12" r="2.2" fill="#0a0a0a" opacity=".35"/></svg></span>Moevisuals</a>
+  <ul class="nav-links">
+    <li><a href="index.html"><em>01</em>Home</a></li>
+    <li><a href="reels.html" class="active"><em>02</em>Reels</a></li>
+    <li><a href="documentaries.html"><em>03</em>Documentaries</a></li>
+    <li><a href="campaigns.html"><em>04</em>Campaigns</a></li>
+    <li><a href="ai-shoots.html"><em>05</em>AI Shoots</a></li>
+    <li><a href="about.html"><em>06</em>About</a></li>
+    <li><a href="contact.html" class="nav-contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-header">
+  <div class="eyebrow">Short Form</div>
+  <h1>Latest <span>Reels</span></h1>
+  <p>Short-form work across brands, music videos, events and social content.</p>
+</div>
+
+<section class="section" style="border-top:none">
+  <div class="grid-masonry" id="reels-grid"></div>
+</section>
+
+<footer class="footer">
+  <div class="footer-logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5" fill="currentColor"/><path d="M17.5 10L21.5 7.3V16.7L17.5 14V10Z" fill="currentColor"/><circle cx="9" cy="12" r="2.2" fill="#0a0a0a" opacity=".35"/></svg></span>Moevisuals</div>
+  <p class="footer-copy">© 2026 Mohamed Wael. All rights reserved.</p>
+  <div class="footer-socials">
+    <a href="https://www.instagram.com/moevisuals1" target="_blank">Instagram</a>
+    <a href="https://vimeo.com/user243885806" target="_blank">Vimeo</a>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  (async()=>{
+    const projects = await getProjects('reels');
+    document.getElementById('reels-grid').innerHTML = projects.map(p => renderCard(p, true)).join('');
+    initVideoHover();
+  })();
+</script>
+</body>
+</html>

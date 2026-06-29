@@ -1,0 +1,4 @@
+.claude/
+node_modules/
+server.js
+start-server.bat

@@ -1,0 +1,181 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+# Organized into 4 separate sections matching the site's actual
+# categories — Campaigns, Reels, Documentaries, AI Shoots — so
+# Mohamed sees a clean, labeled list for each instead of one giant
+# mixed list of everything. Which section a project lives in IS its
+# category — there's no separate dropdown to pick wrong.
+
+collections:
+  - name: "campaigns"
+    label: "Campaigns"
+    files:
+      - file: "content/campaigns.json"
+        label: "Campaigns"
+        name: "campaigns"
+        fields:
+          - label: "Projects"
+            name: "items"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string", hint: "e.g. Adidas Originals Campaign" }
+              - { label: "Slug (unique, no spaces, lowercase)", name: "slug", widget: "string", hint: "e.g. adidas-originals-campaign" }
+              - { label: "Home/Grid Cover Photo (shown small on Home and this category page)", name: "thumbnail", widget: "image", required: false }
+              - { label: "Project Page Cover Photo (the big featured photo on this project's own page)", name: "pageCover", widget: "image", required: false, hint: "Optional — if left empty, the Home/Grid cover photo above is used instead." }
+              - label: "Card Shape (this category page only — Home always stays the same shape no matter what you pick here)"
+                name: "cardRatio"
+                widget: "select"
+                required: false
+                default: "4:3"
+                options:
+                  - { label: "Vertical (9:16) — like Instagram Reels", value: "9:16" }
+                  - { label: "Landscape (16:9) — widescreen", value: "16:9" }
+                  - { label: "Standard (4:3) — classic", value: "4:3" }
+                  - { label: "Square (1:1)", value: "1:1" }
+              - label: "Videos / Reels — add as many as you like for a Campaign"
+                name: "videos"
+                widget: "list"
+                required: false
+                summary: "{{fields.caption}}"
+                fields:
+                  - { label: "Video File (upload directly — best for short clips, no YouTube/Vimeo needed)", name: "file", widget: "file", required: false, hint: "Keep clips short so the file stays small (rough guide: under ~20MB)." }
+                  - { label: "Video Link (YouTube or Vimeo — use this instead for longer videos)", name: "link", widget: "string", required: false, hint: "Paste the full link, e.g. https://youtube.com/watch?v=..." }
+                  - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - label: "Snapshots / Photos (add as many as you want)"
+                name: "snapshots"
+                widget: "list"
+                required: false
+                field: { label: "Image", name: "image", widget: "image" }
+
+  - name: "reels"
+    label: "Reels"
+    files:
+      - file: "content/reels.json"
+        label: "Reels"
+        name: "reels"
+        fields:
+          - label: "Projects"
+            name: "items"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string", hint: "e.g. Coddiwomple" }
+              - { label: "Slug (unique, no spaces, lowercase)", name: "slug", widget: "string", hint: "e.g. coddiwomple" }
+              - { label: "Home/Grid Cover Photo (shown small on Home and this category page)", name: "thumbnail", widget: "image", required: false }
+              - { label: "Project Page Cover Photo (the big featured photo on this project's own page)", name: "pageCover", widget: "image", required: false, hint: "Optional — if left empty, the Home/Grid cover photo above is used instead." }
+              - label: "Card Shape (this category page only — Home always stays the same shape no matter what you pick here)"
+                name: "cardRatio"
+                widget: "select"
+                required: false
+                default: "9:16"
+                options:
+                  - { label: "Vertical (9:16) — like Instagram Reels", value: "9:16" }
+                  - { label: "Landscape (16:9) — widescreen", value: "16:9" }
+                  - { label: "Standard (4:3) — classic", value: "4:3" }
+                  - { label: "Square (1:1)", value: "1:1" }
+              - label: "Video — add only ONE (extra ones won't be shown on the site for Reels)"
+                name: "videos"
+                widget: "list"
+                required: false
+                summary: "{{fields.caption}}"
+                fields:
+                  - { label: "Video File (upload directly — best for short clips, no YouTube/Vimeo needed)", name: "file", widget: "file", required: false, hint: "Keep clips short so the file stays small (rough guide: under ~20MB)." }
+                  - { label: "Video Link (YouTube or Vimeo — use this instead for longer videos)", name: "link", widget: "string", required: false, hint: "Paste the full link, e.g. https://youtube.com/watch?v=..." }
+                  - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - label: "Snapshots / Photos (add as many as you want)"
+                name: "snapshots"
+                widget: "list"
+                required: false
+                field: { label: "Image", name: "image", widget: "image" }
+
+  - name: "documentaries"
+    label: "Documentaries"
+    files:
+      - file: "content/documentaries.json"
+        label: "Documentaries"
+        name: "documentaries"
+        fields:
+          - label: "Projects"
+            name: "items"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string", hint: "e.g. Ringside Glory" }
+              - { label: "Slug (unique, no spaces, lowercase)", name: "slug", widget: "string", hint: "e.g. ringside-glory" }
+              - { label: "Home/Grid Cover Photo (shown small on Home and this category page)", name: "thumbnail", widget: "image", required: false }
+              - { label: "Project Page Cover Photo (the big featured photo on this project's own page)", name: "pageCover", widget: "image", required: false, hint: "Optional — if left empty, the Home/Grid cover photo above is used instead." }
+              - label: "Card Shape (this category page only — Home always stays the same shape no matter what you pick here)"
+                name: "cardRatio"
+                widget: "select"
+                required: false
+                default: "16:9"
+                options:
+                  - { label: "Vertical (9:16) — like Instagram Reels", value: "9:16" }
+                  - { label: "Landscape (16:9) — widescreen", value: "16:9" }
+                  - { label: "Standard (4:3) — classic", value: "4:3" }
+                  - { label: "Square (1:1)", value: "1:1" }
+              - label: "Video — add only ONE (extra ones won't be shown on the site for Documentaries)"
+                name: "videos"
+                widget: "list"
+                required: false
+                summary: "{{fields.caption}}"
+                fields:
+                  - { label: "Video File (upload directly — best for short clips, no YouTube/Vimeo needed)", name: "file", widget: "file", required: false, hint: "Keep clips short so the file stays small (rough guide: under ~20MB)." }
+                  - { label: "Video Link (YouTube or Vimeo — use this instead for longer videos)", name: "link", widget: "string", required: false, hint: "Paste the full link, e.g. https://youtube.com/watch?v=..." }
+                  - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - label: "Snapshots / Photos (add as many as you want)"
+                name: "snapshots"
+                widget: "list"
+                required: false
+                field: { label: "Image", name: "image", widget: "image" }
+
+  - name: "ai-shoots"
+    label: "AI Shoots"
+    files:
+      - file: "content/ai-shoots.json"
+        label: "AI Shoots"
+        name: "ai-shoots"
+        fields:
+          - label: "Projects"
+            name: "items"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string", hint: "e.g. AI Generated Showreel" }
+              - { label: "Slug (unique, no spaces, lowercase)", name: "slug", widget: "string", hint: "e.g. ai-generated-showreel" }
+              - { label: "Home/Grid Cover Photo (shown small on Home and this category page)", name: "thumbnail", widget: "image", required: false }
+              - { label: "Project Page Cover Photo (the big featured photo on this project's own page)", name: "pageCover", widget: "image", required: false, hint: "Optional — if left empty, the Home/Grid cover photo above is used instead." }
+              - label: "Card Shape (this category page only — Home always stays the same shape no matter what you pick here)"
+                name: "cardRatio"
+                widget: "select"
+                required: false
+                default: "4:3"
+                options:
+                  - { label: "Vertical (9:16) — like Instagram Reels", value: "9:16" }
+                  - { label: "Landscape (16:9) — widescreen", value: "16:9" }
+                  - { label: "Standard (4:3) — classic", value: "4:3" }
+                  - { label: "Square (1:1)", value: "1:1" }
+              - label: "Video — add only ONE (extra ones won't be shown on the site for AI Shoots)"
+                name: "videos"
+                widget: "list"
+                required: false
+                summary: "{{fields.caption}}"
+                fields:
+                  - { label: "Video File (upload directly — best for short clips, no YouTube/Vimeo needed)", name: "file", widget: "file", required: false, hint: "Keep clips short so the file stays small (rough guide: under ~20MB)." }
+                  - { label: "Video Link (YouTube or Vimeo — use this instead for longer videos)", name: "link", widget: "string", required: false, hint: "Paste the full link, e.g. https://youtube.com/watch?v=..." }
+                  - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - label: "Snapshots / Photos (add as many as you want)"
+                name: "snapshots"
+                widget: "list"
+                required: false
+                field: { label: "Image", name: "image", widget: "image" }

@@ -1,0 +1,13 @@
+{
+  "items": [
+    { "slug": "ringside-glory", "title": "Ringside Glory",
+      "description": "A documentary following the journey of fighters preparing for the biggest night of their careers.",
+      "thumbnail": "", "pageCover": "", "cardRatio": "16:9", "videos": [], "snapshots": [] },
+    { "slug": "abdallah-elsaid-pyramids", "title": "Abdallah Elsaid x Pyramids",
+      "description": "An intimate look at the career and mindset of footballer Abdallah Elsaid at Pyramids FC.",
+      "thumbnail": "", "pageCover": "", "cardRatio": "16:9", "videos": [], "snapshots": [] },
+    { "slug": "back-home", "title": "Back Home",
+      "description": "A long-form documentary exploring the meaning of home through real, personal stories.",
+      "thumbnail": "", "pageCover": "", "cardRatio": "16:9", "videos": [], "snapshots": [] }
+  ]
+}

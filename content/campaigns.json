@@ -1,0 +1,50 @@
+{
+  "items": [
+    { "slug": "nephorie", "title": "Nephorie",
+      "description": "A moody, editorial fashion campaign for Nephorie — dramatic low-key lighting and bold silhouettes captured across a series of short reels and behind-the-scenes stills.",
+      "thumbnail": "assets/uploads/nephorie/cover.jpg",
+      "pageCover": "",
+      "cardRatio": "9:16",
+      "videos": [
+        { "file": "", "link": "https://drive.google.com/file/d/1s0BMUWJECixj4eXSPfhMSCRvaJCvw1Ef/view", "caption": "" }
+      ],
+      "snapshots": [
+        "assets/uploads/nephorie/snapshot-1.png",
+        "assets/uploads/nephorie/snapshot-2.jpg",
+        "assets/uploads/nephorie/snapshot-3.jpg",
+        "assets/uploads/nephorie/snapshot-4.jpg",
+        "assets/uploads/nephorie/snapshot-5.jpg",
+        "assets/uploads/nephorie/snapshot-6.jpg",
+        "assets/uploads/nephorie/snapshot-7.png",
+        "assets/uploads/nephorie/snapshot-8.jpg",
+        "assets/uploads/nephorie/snapshot-9.jpg",
+        "assets/uploads/nephorie/snapshot-10.jpg"
+      ]
+    },
+    { "slug": "sick", "title": "SICK",
+      "description": "A street style campaign for SICK, capturing the energy and attitude of the brand's latest drop through a series of punchy, high-contrast reels.",
+      "thumbnail": "assets/uploads/sick/cover.jpg",
+      "pageCover": "",
+      "cardRatio": "9:16",
+      "videos": [
+        { "file": "", "link": "https://drive.google.com/file/d/1oo9Id8kwR6I4wqiMnr5cwSLSfZnWVHLp/view", "caption": "" },
+        { "file": "", "link": "https://drive.google.com/file/d/1ZZXibSjKPW6dYhayzBpnR_6sn3KKNdOM/view", "caption": "" }
+      ],
+      "snapshots": [
+        "assets/uploads/sick/still-1.jpg",
+        "assets/uploads/sick/still-2.jpg"
+      ]
+    },
+    { "slug": "ystudios", "title": "Y.Studios",
+      "description": "A sports apparel campaign for Y.Studios, shot at golden hour along the Nile — celebrating team spirit and brand identity.",
+      "thumbnail": "assets/uploads/ystudios/cover.jpg",
+      "pageCover": "",
+      "cardRatio": "16:9",
+      "videos": [
+        { "file": "", "link": "https://drive.google.com/file/d/1kPf3Ljkg16q_e3KSV-OlWVvxuVAAgt-C/view", "caption": "" },
+        { "file": "", "link": "https://drive.google.com/file/d/1_eMZRFSRQfOcgW5cop_bL_vVZIu6TONv/view", "caption": "" }
+      ],
+      "snapshots": []
+    }
+  ]
+}

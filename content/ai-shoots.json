@@ -1,0 +1,22 @@
+{
+  "items": [
+    { "slug": "ai-flashy", "title": "Flashy",
+      "description": "A high-energy, AI-assisted cinematic edit — bold cuts, dynamic motion, and striking visuals pushing creative boundaries.",
+      "thumbnail": "assets/uploads/ai-shoots/flashy-cover.png",
+      "pageCover": "", "cardRatio": "9:16",
+      "videos": [
+        { "file": "", "link": "https://drive.google.com/file/d/1WqAurpstO68qTAzT65X4dwfgJDJFkDnS/view", "caption": "" }
+      ],
+      "snapshots": []
+    },
+    { "slug": "ai-drone", "title": "Drone",
+      "description": "An AI-enhanced drone sequence — sweeping aerial perspectives with a cinematic grade.",
+      "thumbnail": "assets/uploads/ai-shoots/drone-cover.jpg",
+      "pageCover": "", "cardRatio": "9:16",
+      "videos": [
+        { "file": "", "link": "https://drive.google.com/file/d/1ZLBWJyS0mu3qcs2I6vmn7xd3t4kx3iWC/view", "caption": "" }
+      ],
+      "snapshots": []
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Moevisuals — Mohamed Wael</title>
+<meta name="description" content="Moevisuals — Mohamed Wael. Videographer based in Cairo, Egypt."/>
+<link rel="stylesheet" href="css/style.css"/>
+<!-- Processes Mohamed's login/invite email links from the admin panel -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on('init', user => {
+      if (!user) {
+        window.netlifyIdentity.on('login', () => { document.location.href = '/admin/'; });
+      }
+    });
+  }
+</script>
+</head>
+<body>
+<div class="bg-fx"><svg class="aperture-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1"><circle cx="200" cy="200" r="170"/><g class="iris-mechanism"><path class="iris-blade" d="M 370,200 L 320.21,320.21 L 310.59,301.34 Z"/><path class="iris-blade" d="M 320.21,320.21 L 200,370 L 206.54,349.86 Z"/><path class="iris-blade" d="M 200,370 L 79.79,320.21 L 98.66,310.59 Z"/><path class="iris-blade" d="M 79.79,320.21 L 30,200 L 50.14,206.54 Z"/><path class="iris-blade" d="M 30,200 L 79.79,79.79 L 89.41,98.66 Z"/><path class="iris-blade" d="M 79.79,79.79 L 200,30 L 193.46,50.14 Z"/><path class="iris-blade" d="M 200,30 L 320.21,79.79 L 301.34,89.41 Z"/><path class="iris-blade" d="M 320.21,79.79 L 370,200 L 349.86,193.46 Z"/></g></g></svg><div class="light-leak"></div></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5" fill="currentColor"/><path d="M17.5 10L21.5 7.3V16.7L17.5 14V10Z" fill="currentColor"/><circle cx="9" cy="12" r="2.2" fill="#0a0a0a" opacity=".35"/></svg></span>Moevisuals</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active"><em>01</em>Home</a></li>
+    <li><a href="documentaries.html"><em>02</em>Documentaries</a></li>
+    <li><a href="campaigns.html"><em>03</em>Campaigns</a></li>
+    <li><a href="ai-shoots.html"><em>04</em>AI Shoots</a></li>
+    <li><a href="about.html"><em>05</em>About</a></li>
+    <li><a href="contact.html" class="nav-contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-main">
+    <div class="eyebrow">Videographer</div>
+    <h1>Moe<br><span>visuals</span></h1>
+    <p class="hero-slogan">Filmmaker in the Making</p>
+  </div>
+  <div class="hero-side">
+    <p>Based in Cairo, Egypt. I'd love to hear from you — let's work together on your next project.</p>
+    <ul class="hero-categories">
+      <li>Brand Films</li>
+      <li>Music Videos</li>
+      <li>Events</li>
+      <li>Documentaries</li>
+    </ul>
+    <div class="hero-actions">
+      <a href="reels.html" class="btn-primary">View Work</a>
+      <a href="contact.html" class="btn-ghost">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head" data-reveal>
+    <div class="head-left"><span class="section-num">01</span><h2>My Projects</h2></div>
+  </div>
+  <div class="grid" id="projects-grid"></div>
+</section>
+
+<footer class="footer">
+  <div class="footer-logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5" fill="currentColor"/><path d="M17.5 10L21.5 7.3V16.7L17.5 14V10Z" fill="currentColor"/><circle cx="9" cy="12" r="2.2" fill="#0a0a0a" opacity=".35"/></svg></span>Moevisuals</div>
+  <p class="footer-copy">© 2026 Mohamed Wael. All rights reserved.</p>
+  <div class="footer-socials">
+    <a href="https://www.instagram.com/moevisuals1" target="_blank">Instagram</a>
+    <a href="https://vimeo.com/user243885806" target="_blank">Vimeo</a>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  (async()=>{
+    const all = await getProjects();
+    const projects = all.filter(p => p.category !== 'ai-shoots' && p.thumbnail);
+    document.getElementById('projects-grid').innerHTML = projects.map(p => renderCard(p, false)).join('');
+    initVideoHover();
+  })();
+</script>
+</body>
+</html>

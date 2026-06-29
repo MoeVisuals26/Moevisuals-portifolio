@@ -1,0 +1,13 @@
+{
+  "items": [
+    { "slug": "coddiwomple", "title": "Coddiwomple",
+      "description": "A short-form visual story built for social, full of movement and mood.",
+      "thumbnail": "", "pageCover": "", "cardRatio": "9:16", "videos": [], "snapshots": [] },
+    { "slug": "hit-gym-promo", "title": "Hit Gym Promo",
+      "description": "A fast-paced promotional reel for Hit Gym, designed to drive engagement and new memberships.",
+      "thumbnail": "", "pageCover": "", "cardRatio": "9:16", "videos": [], "snapshots": [] },
+    { "slug": "go-native", "title": "Go Native",
+      "description": "A short-form travel and lifestyle reel celebrating authentic, native experiences.",
+      "thumbnail": "", "pageCover": "", "cardRatio": "9:16", "videos": [], "snapshots": [] }
+  ]
+}
