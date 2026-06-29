@@ -111,6 +111,10 @@
     document.getElementById('back-link').href = CATEGORY_PAGES[p.category] || 'index.html';
     document.getElementById('back-label').textContent = CATEGORY_LABELS[p.category] || 'Work';
 
+    if (p.cardRatio) {
+      document.getElementById('project-video').style.aspectRatio = p.cardRatio.replace(':', '/');
+    }
+
     /* Priority for the big featured player: the first video in the
        list (uploaded file or YouTube/Vimeo link), then the cover
        photo, then a placeholder. Any EXTRA videos beyond the first
@@ -147,9 +151,10 @@
     const extraVideos = videos.slice(1);
     if (extraVideos.length) {
       document.getElementById('project-videos-wrap').style.display = '';
+      const cardRatioStyle = p.cardRatio ? ` style="aspect-ratio:${p.cardRatio.replace(':','/')}"` : '';
       document.getElementById('project-videos-grid').innerHTML = extraVideos.map(v => `
         <div class="project-video-card">
-          <div class="project-video-card-media">
+          <div class="project-video-card-media"${cardRatioStyle}>
             ${v.type === 'file'
               ? `<video src="${v.src}" controls playsinline preload="metadata" onerror="handleVideoError(this)"></video>`
               : `<iframe src="${v.src}" allowfullscreen allow="autoplay; fullscreen" loading="lazy"></iframe>`}
